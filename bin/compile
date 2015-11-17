@@ -49,7 +49,7 @@ plat=$(uname|tr A-Z a-z)-$arch
 venv=$cache/venv
 mkdir -p $cache/pip
 python=python2.7
-PATH=$buildpack/$plat/bin:$venv/bin:$PATH
+PATH=$buildpack/$plat/bin:$venv/bin:$PATH:$build/vendor/ffmpeg/bin
 steptxt="----->"
 
 virtualenv() {
@@ -165,7 +165,7 @@ env_dir="$3"
 if [ -d "$env_dir" ]
 then
     ln -sfn $build /app/code
-  for key in CGO_CFLAGS CGO_CPPFLAGS CGO_CXXFLAGS CGO_LDFLAGS GO_LINKER_SYMBOL GO_LINKER_VALUE
+  for key in CGO_CFLAGS CGO_CPPFLAGS CGO_CXXFLAGS CGO_LDFLAGS GO_LINKER_SYMBOL GO_LINKER_VALUE PKG_CONFIG_PATH LD_LIBRARY_PATH LIBRARY_PATH
     do
         if [ -f "$env_dir/$key" ]
         then
